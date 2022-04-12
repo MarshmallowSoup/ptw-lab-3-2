@@ -92,11 +92,11 @@ void print(Student* s, int amSt)
 double avgGrade(Student* s, const int i) {
     double avg = 0;
     if (s[i].spec == 0)
-        avg = (s[i].physics + s[i].math + s[i].progr) / 3.0;
+        avg = (1.0 * (s[i].physics + s[i].math + s[i].progr)) / 3;
     else if (s[i].spec == 1)
-        avg = (s[i].physics + s[i].math + s[i].numb) / 3.0;
+        avg = (1.0 * (s[i].physics + s[i].math + s[i].numb)) / 3;
     else
-        avg = (s[i].physics + s[i].math + s[i].ped) / 3.0;
+        avg = (1.0 * (s[i].physics + s[i].math + s[i].ped)) / 3;
     return avg;
 }
 
@@ -169,6 +169,44 @@ int binSearch(Student* p, const int N, const string prizv, const Spec spec)
     } while (L <= R);
     return -1;
 }
+
+void printIndexSorted(Student* s, int* I, int amSt)
+{
+    cout << "=========================================================================================================================="
+        << endl;
+    cout << "| № |    Прiзвище   | Курс |      Спецiальнiсть     | Фiзика | Математика | Програмування | Чисельнi методи | Педагогiка |"
+        << endl;
+    cout << "--------------------------------------------------------------------------------------------------------------------------"
+        << endl;
+    for (int i = 0; i < amSt; i++) {
+
+        cout << "| " << setw(2) << right << i + 1 << "";
+        cout << "| " << setw(14) << left << s[I[i]].lname
+            << "| " << setw(5) << right << s[I[i]].kurs
+            << "| " << setw(23) << left << strSpec[s[I[i]].spec]
+            << "| " << setw(7) << s[I[i]].physics
+            << "| " << setw(11) << right << s[I[i]].math;
+        if (s[I[i]].spec == 0) {
+            cout << "| " << setw(14) << right << s[I[i]].progr
+                << "| " << setw(16) << right << " "
+                << "| " << setw(11) << right << " " << "| ";
+        }
+        else if (s[I[i]].spec == 1) {
+            cout << "| " << setw(14) << right << " "
+                << "| " << setw(16) << right << s[I[i]].numb
+                << "| " << setw(11) << right << " " << "| ";
+        }
+        else {
+            cout << "| " << setw(14) << right << " "
+                << "| " << setw(16) << right << " "
+                << "| " << setw(11) << right << s[I[i]].ped << "| ";
+        }
+        cout << endl;
+    }
+    cout << "--------------------------------------------------------------------------------------------------------------------------"
+        << endl;
+}
+
 int main() {
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
@@ -205,7 +243,7 @@ int main() {
             Sort(s, amSt);
             break;
         case 4:
-            indexSort(s, amSt);
+            printIndexSorted(s, indexSort(s, amSt), amSt);
             break;
         case 5:
             cout << "Введіть ключі пошуку:" << endl;
